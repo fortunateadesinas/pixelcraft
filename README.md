@@ -26,14 +26,6 @@ Pixel Art Maker is a simple web application that allows users to create pixel ar
     ```bash
     cd pixel-art-maker
     ```
-3. Install dependencies:
-    ```bash
-    npm install
-    ```
-4. Start the development server:
-    ```bash
-    npm start
-    ```
 
 ## Usage
 
