@@ -30,6 +30,8 @@ input, button {
   display: grid;
   margin: 20px auto;
   border: 2px solid #333;
+  width: fit-content;
+  background-color: wheat;
 }
 
 /* Individual pixel */
