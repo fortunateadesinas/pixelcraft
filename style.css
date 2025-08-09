@@ -25,6 +25,15 @@ input, button {
   font-size: 14px;
 }
 
+#color-picker {
+  width: fit-content;
+  height: fit-content;
+  border: none;
+  border-radius: 8px;
+  background-color: bisque;
+  margin-top: 3px;
+}
+
 /* Grid container */
 #pixel-grid {
   display: grid;
