@@ -68,6 +68,7 @@ button:active {
     border: 4px solid #3b2f2f;
     background-color: #c0b090;
     image-rendering: pixelated;
+    width: fit-content;
 }
 
 /* Individual pixel */
