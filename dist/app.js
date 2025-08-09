@@ -5,6 +5,17 @@ const colorPicker = document.getElementById('color-picker');
 const clearGridButton = document.getElementById('clear-grid');
 const pixelGrid = document.getElementById('pixel-grid');
 let isMouseDown = false;
+let currentTool = 'pen';
+// Select Tool Buttons
+const penToolBtn = document.getElementById("pen-tool");
+const eraserToolBtn = document.getElementById("eraser-tool");
+const eyedropperToolBtn = document.getElementById("eyedropper-tool");
+const fillToolBtn = document.getElementById("fill-tool");
+// Add event listeners for tool switching
+penToolBtn.addEventListener("click", () => currentTool = "pen");
+eraserToolBtn.addEventListener("click", () => currentTool = "eraser");
+eyedropperToolBtn.addEventListener("click", () => currentTool = "eyedropper");
+fillToolBtn.addEventListener("click", () => currentTool = "fill");
 // Add event listeners for mouse down and up to handle drawing
 document.body.addEventListener('mousedown', () => {
     isMouseDown = true;
@@ -34,6 +45,52 @@ function loadArtwork() {
         pixels[index].style.backgroundColor = color;
     });
 }
+function rgbToHex(rgb) {
+    const result = rgb.match(/\d+/g);
+    if (!result)
+        return "#ffffff";
+    const r = parseInt(result[0]).toString(16).padStart(2, "0");
+    const g = parseInt(result[1]).toString(16).padStart(2, "0");
+    const b = parseInt(result[2]).toString(16).padStart(2, "0");
+    return `#${r}${g}${b}`;
+}
+function fillArea(startPixel, newColor) {
+    const pixels = Array.from(pixelGrid.children);
+    const size = Number(gridSizeInput.value);
+    const targetColor = startPixel.style.backgroundColor || "white";
+    if (targetColor === newColor)
+        return;
+    const queue = [pixels.indexOf(startPixel)];
+    while (queue.length > 0) {
+        const index = queue.shift();
+        const pixel = pixels[index];
+        if (!pixel)
+            continue;
+        if (pixel.style.backgroundColor !== targetColor)
+            continue;
+        pixel.style.backgroundColor = newColor;
+        const neighbors = getNeighbors(index, size);
+        neighbors.forEach(n => {
+            if (pixels[n] && pixels[n].style.backgroundColor === targetColor) {
+                queue.push(n);
+            }
+        });
+    }
+}
+function getNeighbors(index, size) {
+    const neighbors = [];
+    const row = Math.floor(index / size);
+    const col = index % size;
+    if (row > 0)
+        neighbors.push(index - size); // Up
+    if (row < size - 1)
+        neighbors.push(index + size); // Down
+    if (col > 0)
+        neighbors.push(index - 1); // Left
+    if (col < size - 1)
+        neighbors.push(index + 1); // Right
+    return neighbors;
+}
 // Function to create the pixel grid
 function createGrid(size) {
     // Clear any existing grid
@@ -45,15 +102,35 @@ function createGrid(size) {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
         // Change color on click
-        pixel.addEventListener('click', () => {
-            pixel.style.backgroundColor = colorPicker.value;
-            saveArtwork();
+        pixel.addEventListener("click", () => {
+            if (currentTool === "pen") {
+                pixel.style.backgroundColor = colorPicker.value;
+                saveArtwork();
+            }
+            else if (currentTool === "eraser") {
+                pixel.style.backgroundColor = "white";
+                saveArtwork();
+            }
+            else if (currentTool === "eyedropper") {
+                const bg = getComputedStyle(pixel).backgroundColor;
+                colorPicker.value = rgbToHex(bg);
+            }
+            else if (currentTool === "fill") {
+                fillArea(pixel, colorPicker.value);
+                saveArtwork();
+            }
         });
         // Drag paint
-        pixel.addEventListener('mouseover', () => {
-            if (isMouseDown) {
+        pixel.addEventListener("mouseover", () => {
+            if (!isMouseDown)
+                return;
+            if (currentTool === "pen") {
                 pixel.style.backgroundColor = colorPicker.value;
-                saveArtwork(); // save changes
+                saveArtwork();
+            }
+            else if (currentTool === "eraser") {
+                pixel.style.backgroundColor = "white";
+                saveArtwork();
             }
         });
         // later: we'll add color change on click here

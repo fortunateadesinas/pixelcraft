@@ -1,53 +1,81 @@
+/* Pixel Art Retro Theme */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Press Start 2P', cursive;
     text-align: center;
-    background: #f4f4f4;
+    background: repeating-linear-gradient(
+        45deg,
+        #e0d7c6,
+        #e0d7c6 10px,
+        #d4c5b3 10px,
+        #d4c5b3 20px
+    );
     margin: 0;
     padding: 20px;
+    image-rendering: pixelated;
 }
 
 /* Title */
 h1 {
-    color: #333;
+    color: #3b2f2f;
+    text-shadow: 2px 2px #f9e4b7;
+    font-size: 20px;
 }
 
 /* Controls section */
 .controls {
-  margin: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
+/* Inputs and buttons - pixel style */
 input, button {
-  padding: 5px 10px;
-  font-size: 14px;
+    padding: 8px 12px;
+    font-size: 10px;
+    font-family: 'Press Start 2P', cursive;
+    border: 3px solid #3b2f2f;
+    background-color: #f9e4b7;
+    cursor: pointer;
+    image-rendering: pixelated;
+    box-shadow: 4px 4px #3b2f2f;
+    transition: all 0.1s ease-in-out;
 }
 
-#color-picker {
-  width: fit-content;
-  height: fit-content;
-  border: none;
-  border-radius: 8px;
-  background-color: bisque;
-  margin-top: 3px;
+input[type="color"] {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #3b2f2f;
+}
+
+button:hover, input:hover {
+    background-color: #ffd47f;
+}
+
+button:active {
+    box-shadow: 2px 2px #3b2f2f;
+    transform: translate(2px, 2px);
 }
 
 /* Grid container */
 #pixel-grid {
-  display: grid;
-  margin: 20px auto;
-  border: 2px solid #333;
-  width: fit-content;
-  background-color: wheat;
+    display: grid;
+    margin: 20px auto;
+    border: 4px solid #3b2f2f;
+    background-color: #c0b090;
+    image-rendering: pixelated;
 }
 
 /* Individual pixel */
 .pixel {
-  border: 1px solid #ddd;
-  background: white;
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
+    border: 1px solid #9b8c75;
+    background: white;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    image-rendering: pixelated;
 }
