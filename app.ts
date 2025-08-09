@@ -17,6 +17,11 @@ function createGrid(size: number): void {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
 
+        // Change color on click
+        pixel.addEventListener('click', () => {
+            pixel.style.backgroundColor = colorPicker.value;
+        });
+
         // later: we'll add color change on click here
         pixelGrid.appendChild(pixel);
     }
