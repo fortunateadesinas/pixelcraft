@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Title */
+h1 {
+    color: #333;
+}
+
+/* Controls section */
+.controls {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+input, button {
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+/* Grid container */
+#pixel-grid {
+  display: grid;
+  margin: 20px auto;
+  border: 2px solid #333;
+}
+
+/* Individual pixel */
+.pixel {
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
